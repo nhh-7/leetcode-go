@@ -1,6 +1,9 @@
 package stack
 
-// 使用两个栈，一个栈的栈顶用于记录当前栈中的最小元素，另一个为正常的栈
+import "math"
+
+/*
+使用两个栈，一个栈的栈顶用于记录当前栈中的最小元素，另一个为正常的栈
 type MinStack struct {
 	minStk []int
 	stk    []int
@@ -33,6 +36,34 @@ func (m *MinStack) Top() int {
 
 func (m *MinStack) GetMin() int {
 	return m.minStk[len(m.minStk)-1]
+}
+*/
+
+// 使用一个pair保存当前栈中的元素及最小值
+type pair struct {
+	val, preMin int
+}
+type MinStack []pair
+
+func Constructor() MinStack {
+	return MinStack{{0, math.MaxInt}}
+}
+
+func (m *MinStack) Push(val int) {
+	curMin := min(val, m.GetMin())
+	*m = append(*m, pair{val: val, preMin: curMin})
+}
+
+func (m *MinStack) Pop() {
+	*m = (*m)[:len(*m)-1]
+}
+
+func (m *MinStack) Top() int {
+	return (*m)[len(*m)-1].val
+}
+
+func (m *MinStack) GetMin() int {
+	return (*m)[len(*m)-1].preMin
 }
 
 /**
