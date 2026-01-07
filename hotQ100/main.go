@@ -2,19 +2,15 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
-func test(t []int) {
-	t[0] = 111
-	fmt.Println(t, len(t), cap(t))
-}
-
 func main() {
-	var s string = "1245"
-	fmt.Println(s)
+	ticker := time.NewTicker(100 * time.Millisecond)
+	last := time.Now()
 
-	sl := make([]int, 1, 11)
-	fmt.Println(sl, len(sl), cap(sl))
-	test(sl)
-	fmt.Println(sl, len(sl), cap(sl))
+	for t := range ticker.C {
+		fmt.Printf("间隔时间: %v\n", t.Sub(last))
+		last = t
+	}
 }
