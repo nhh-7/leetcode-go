@@ -1,7 +1,5 @@
 package hot
 
-import "fmt"
-
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
@@ -9,7 +7,32 @@ import "fmt"
  *     Next *ListNode
  * }
  */
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+
+func addTwoNumbers0(l1 *ListNode, l2 *ListNode) *ListNode {
+	dummy := &ListNode{}
+	cur := dummy
+
+	carry := 0
+	for l1 != nil || l2 != nil || carry > 0 {
+		val1, val2 := 0, 0
+		if l1 != nil {
+			val1 = l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			val2 = l2.Val
+			l2 = l2.Next
+		}
+
+		val := (val1 + val2 + carry) % 10
+		carry = (val1 + val2 + carry) / 10
+		cur.Next = &ListNode{Val: val}
+		cur = cur.Next
+	}
+	return dummy.Next
+}
+
+func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
 	dummy := &ListNode{}
 	cur := dummy
 
@@ -23,7 +46,6 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		l2 = l2.Next
 		cur = cur.Next
 	}
-	fmt.Print(dummy)
 	for l1 != nil {
 		val := (l1.Val + j) % 10
 		j = (l1.Val + j) / 10
