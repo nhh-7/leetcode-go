@@ -8,7 +8,8 @@ package hot
  * }
  */
 
-/**
+/*
+*
 将要反转的独立出来，记录该段的前后节点，反转后在重新连接
 */
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
@@ -27,7 +28,7 @@ func reverseBetween(head *ListNode, left int, right int) *ListNode {
 		cur = tmp
 	}
 
-	// 此时cur为该段后一节点，p0为该段前一节点
+	// 此时cur为该段后一节点，p0为该段前一节点，pre为该段最后一个节点
 
 	p0.Next.Next = cur // 注意要先连接这里
 	p0.Next = pre

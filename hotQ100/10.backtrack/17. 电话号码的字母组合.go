@@ -5,21 +5,21 @@ func letterCombinations(digits string) []string {
 	ans := []string{}
 	path := []byte{}
 	n := len(digits)
-	if n == 0 {
-		return ans
-	}
 	var dfs func(int)
-	dfs = func(startIdx int) {
-		if len(path) >= n {
+	dfs = func(index int) { // index 直接代表当前处理 digits[index]
+		if index == n { // 终止条件：处理完了所有数字
 			ans = append(ans, string(path))
 			return
 		}
-		for i := startIdx; i < n; i++ {
-			for j := 0; j < len(mapping[digits[i]-'0']); j++ {
-				path = append(path, mapping[digits[i]-'0'][j])
-				dfs(i + 1)
-				path = path[:len(path)-1]
-			}
+
+		// 取出当前数字对应的字母串
+		letters := mapping[digits[index]-'0']
+
+		// 遍历当前数字能选的字母
+		for j := 0; j < len(letters); j++ {
+			path = append(path, letters[j])
+			dfs(index + 1)            // 递归处理【下一个】数字
+			path = path[:len(path)-1] // 回溯
 		}
 	}
 	dfs(0)

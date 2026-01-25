@@ -31,7 +31,6 @@ func pathSum(root *TreeNode, targetSum int) int {
 		traversal(tn.Right, s)
 
 		cnt[s]--
-		s -= tn.Val
 	}
 	traversal(root, 0)
 	return ans
