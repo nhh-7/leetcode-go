@@ -1,6 +1,6 @@
 package greedy
 
-// 核心，同一字母只能出现在同一片段中，从前往后扫，知道当前片段中所有字母没有在后面出现了，记录答案
+// 核心，同一字母只能出现在同一片段中，从前往后扫，直到当前片段中所有字母没有在后面出现了，记录答案
 func partitionLabels(s string) []int {
 	m := map[rune]int{}
 	for i, c := range s {

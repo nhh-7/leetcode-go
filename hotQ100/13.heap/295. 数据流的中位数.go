@@ -8,7 +8,6 @@ type MedianFinder struct {
 }
 
 // 使用同一个最小堆实现最大最小堆，将数据放入left最大堆时，对数据取反，取出要使用再把数据变换回来，这样则实现了最大堆
-
 func Constructor() MedianFinder {
 	return MedianFinder{}
 }

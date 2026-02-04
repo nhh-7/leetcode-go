@@ -12,8 +12,8 @@ func lengthOfLIS(nums []int) int {
 			if nums[j] < nums[i] {
 				dp[i] = max(dp[i], dp[j]+1)
 			}
-			ans = max(ans, dp[i])
 		}
+		ans = max(ans, dp[i])
 	}
 	return ans
 }

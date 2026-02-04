@@ -1,11 +1,9 @@
 package dp
 
-import "math"
-
 func numSquares(n int) int {
 	dp := make([]int, n+1)
 	for i := 1; i <= n; i++ {
-		dp[i] = math.MaxInt
+		dp[i] = i
 	}
 
 	for i := 1; i*i <= n; i++ {
