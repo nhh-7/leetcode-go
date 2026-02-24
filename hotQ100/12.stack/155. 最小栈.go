@@ -40,30 +40,70 @@ func (m *MinStack) GetMin() int {
 */
 
 // 使用一个pair保存当前栈中的元素及最小值
+// type pair struct {
+// 	val, preMin int
+// }
+// type MinStack []pair
+
+// func Constructor() MinStack {
+// 	return MinStack{{0, math.MaxInt}}
+// }
+
+// func (m *MinStack) Push(val int) {
+// 	curMin := min(val, m.GetMin())
+// 	*m = append(*m, pair{val: val, preMin: curMin})
+// }
+
+// func (m *MinStack) Pop() {
+// 	*m = (*m)[:len(*m)-1]
+// }
+
+// func (m *MinStack) Top() int {
+// 	return (*m)[len(*m)-1].val
+// }
+
+// func (m *MinStack) GetMin() int {
+// 	return (*m)[len(*m)-1].preMin
+// }
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(val);
+ * obj.Pop();
+ * param_3 := obj.Top();
+ * param_4 := obj.GetMin();
+ */
+
 type pair struct {
-	val, preMin int
+	val, mmin int
 }
-type MinStack []pair
+
+type MinStack struct {
+	stack []pair
+}
 
 func Constructor() MinStack {
-	return MinStack{{0, math.MaxInt}}
+	return MinStack{
+		stack: []pair{{0, math.MaxInt}},
+	}
 }
 
-func (m *MinStack) Push(val int) {
-	curMin := min(val, m.GetMin())
-	*m = append(*m, pair{val: val, preMin: curMin})
+func (this *MinStack) Push(val int) {
+	curMin := min(val, this.GetMin())
+	this.stack = append(this.stack, pair{val: val, mmin: curMin})
 }
 
-func (m *MinStack) Pop() {
-	*m = (*m)[:len(*m)-1]
+func (this *MinStack) Pop() {
+	this.stack = this.stack[:len(this.stack)-1]
 }
 
-func (m *MinStack) Top() int {
-	return (*m)[len(*m)-1].val
+func (this *MinStack) Top() int {
+	return this.stack[len(this.stack)-1].val
 }
 
-func (m *MinStack) GetMin() int {
-	return (*m)[len(*m)-1].preMin
+func (this *MinStack) GetMin() int {
+	return this.stack[len(this.stack)-1].mmin
 }
 
 /**

@@ -18,7 +18,7 @@ func middleNode(head *ListNode) *ListNode {
 	return slow
 }
 
-func isPalindrome(head *ListNode) bool {
+func isPalindrome1(head *ListNode) bool {
 	midNode := middleNode(head)
 	var pre, cur *ListNode = nil, midNode
 	for cur != nil {
@@ -34,6 +34,38 @@ func isPalindrome(head *ListNode) bool {
 			return false
 		}
 		cur1, cur2 = cur1.Next, cur2.Next
+	}
+	return true
+}
+
+func getMiddleNode(node *ListNode) *ListNode {
+	fast, slow := node, node
+	pre := node
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		pre = slow
+		slow = slow.Next
+	}
+	pre.Next = nil
+	return slow
+}
+
+func isPalindrome(head *ListNode) bool {
+	middle := getMiddleNode(head)
+	var pre *ListNode = nil
+	cur := middle
+	for cur != nil {
+		tmp := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = tmp
+	}
+	for head != nil && pre != nil {
+		if head.Val != pre.Val {
+			return false
+		}
+		head = head.Next
+		pre = pre.Next
 	}
 	return true
 }

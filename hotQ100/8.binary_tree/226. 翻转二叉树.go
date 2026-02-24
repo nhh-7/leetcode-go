@@ -22,7 +22,7 @@ func invertTree1(root *TreeNode) *TreeNode {
 	return root
 }
 
-func invertTree(root *TreeNode) *TreeNode {
+func invertTree2(root *TreeNode) *TreeNode {
 	var traversal func(*TreeNode)
 	traversal = func(node *TreeNode) {
 		if node == nil {
@@ -33,5 +33,15 @@ func invertTree(root *TreeNode) *TreeNode {
 		traversal(node.Right)
 	}
 	traversal(root)
+	return root
+}
+
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	invertTree(root.Left)
+	invertTree(root.Right)
+	root.Left, root.Right = root.Right, root.Left
 	return root
 }

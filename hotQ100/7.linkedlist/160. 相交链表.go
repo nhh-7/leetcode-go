@@ -40,13 +40,13 @@ func getIntersectionNode1(headA, headB *ListNode) *ListNode {
 }
 
 /*
-	思路：
-	 - 设A链表长度为x，B链表长度为y，公共链表长度为z（z可以为0，表示不相交）
-	 - 同时开始遍历两条链表， 知道节点相同
-	 - 若不相同，且遍历到空节点那么跳转到另一条链表头部开始遍历
-	 - 相同则退出遍历，最多遍历 x+y 次（也就是不相交）
+思路：
+  - 设A链表长度为x，B链表长度为y，公共链表长度为z（z可以为0，表示不相交）
+  - 同时开始遍历两条链表， 知道节点相同
+  - 若不相同，且遍历到空节点那么跳转到另一条链表头部开始遍历
+  - 相同则退出遍历，最多遍历 x+y 次（也就是不相交）
 */
-func getIntersectionNode(headA, headB *ListNode) *ListNode {
+func getIntersectionNode2(headA, headB *ListNode) *ListNode {
 	p, q := headA, headB
 
 	for p != q {
@@ -59,6 +59,23 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 			q = q.Next
 		} else {
 			q = headA
+		}
+	}
+	return p
+}
+
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	p, q := headA, headB
+	for p != q {
+		if p == nil {
+			p = headB
+		} else {
+			p = p.Next
+		}
+		if q == nil {
+			q = headA
+		} else {
+			q = q.Next
 		}
 	}
 	return p
