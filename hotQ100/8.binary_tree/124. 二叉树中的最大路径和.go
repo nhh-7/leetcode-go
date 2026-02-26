@@ -27,7 +27,7 @@ func maxPathSum1(root *TreeNode) int {
 	return ans
 }
 
-func maxPathSum(root *TreeNode) int {
+func maxPathSum2(root *TreeNode) int {
 	ans := math.MinInt
 	var dfs func(*TreeNode) int
 
@@ -42,6 +42,22 @@ func maxPathSum(root *TreeNode) int {
 		ans = max(ans, left+right+tn.Val)
 
 		return tn.Val + max(left, right)
+	}
+	dfs(root)
+	return ans
+}
+
+func maxPathSum(root *TreeNode) int {
+	var dfs func(*TreeNode) int
+	ans := -1001
+	dfs = func(tn *TreeNode) int {
+		if tn == nil {
+			return 0
+		}
+		left := max(0, dfs(tn.Left))
+		right := max(0, dfs(tn.Right))
+		ans = max(ans, left+right+tn.Val)
+		return max(left, right) + tn.Val
 	}
 	dfs(root)
 	return ans

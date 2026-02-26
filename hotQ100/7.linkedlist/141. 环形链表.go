@@ -7,7 +7,7 @@ package hot
  *     Next *ListNode
  * }
  */
-func hasCycle(head *ListNode) bool {
+func hasCycle1(head *ListNode) bool {
 	slow, fast := head, head
 
 	for fast != nil && fast.Next != nil {
@@ -15,6 +15,19 @@ func hasCycle(head *ListNode) bool {
 		fast = fast.Next.Next
 
 		if slow == fast {
+			return true
+		}
+	}
+	return false
+}
+
+func hasCycle(head *ListNode) bool {
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+
+		if fast == slow {
 			return true
 		}
 	}
