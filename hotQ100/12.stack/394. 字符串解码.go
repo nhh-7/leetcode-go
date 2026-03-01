@@ -8,7 +8,7 @@ import (
 /*
 遇到[就压入栈，遇到]读取栈顶进行处理
 */
-func decodeString(s string) string {
+func decodeString1(s string) string {
 	type pair struct {
 		k int
 		s string
@@ -34,6 +34,34 @@ func decodeString(s string) string {
 			// 重复k次拼接前缀，获得下一次碰到[的前缀
 			// res记录了在[]中的需要重复的字符串
 			res = pre + strings.Repeat(res, p.k)
+		}
+	}
+	return res
+}
+
+func decodeString(s string) string {
+	type pair struct {
+		k int
+		s string
+	}
+	k := 0
+	res := ""
+
+	stack := make([]pair, 0)
+	for _, ch := range s {
+		if unicode.IsLetter(ch) {
+			res += string(ch)
+		} else if unicode.IsDigit(ch) {
+			k = k*10 + int(ch-'0')
+		} else if ch == '[' {
+			stack = append(stack, pair{k, res})
+			k = 0
+			res = ""
+		} else {
+			pre := stack[len(stack)-1].s
+			cnt := stack[len(stack)-1].k
+			stack = stack[:len(stack)-1]
+			res = pre + strings.Repeat(res, cnt)
 		}
 	}
 	return res

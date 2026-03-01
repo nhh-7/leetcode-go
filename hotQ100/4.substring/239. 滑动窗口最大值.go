@@ -1,6 +1,6 @@
 package hot
 
-func maxSlidingWindow(nums []int, k int) []int {
+func maxSlidingWindow1(nums []int, k int) []int {
 	ans := make([]int, len(nums)-k+1)
 	q := []int{} // 模拟单调队列
 
@@ -17,6 +17,27 @@ func maxSlidingWindow(nums []int, k int) []int {
 
 		if left >= 0 {
 			ans[left] = nums[q[0]] // 队头即最大值
+		}
+	}
+	return ans
+}
+
+func maxSlidingWindow(nums []int, k int) []int {
+	queue := []int{}
+	ans := make([]int, len(nums)-k+1)
+	for i, v := range nums {
+		for len(queue) > 0 && queue[len(queue)-1] < v {
+			queue = queue[:len(queue)-1]
+		}
+		queue = append(queue, v)
+
+		left := i - k + 1
+		if left >= 0 {
+			ans[left] = queue[0]
+
+			if nums[left] == queue[0] {
+				queue = queue[1:]
+			}
 		}
 	}
 	return ans

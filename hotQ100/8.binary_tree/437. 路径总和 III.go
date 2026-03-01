@@ -8,7 +8,7 @@ package binarytree
  *     Right *TreeNode
  * }
  */
-func pathSum(root *TreeNode, targetSum int) int {
+func pathSum1(root *TreeNode, targetSum int) int {
 	cnt := make(map[int]int)
 	cnt[0] = 1
 
@@ -31,6 +31,29 @@ func pathSum(root *TreeNode, targetSum int) int {
 		traversal(tn.Right, s)
 
 		cnt[s]--
+	}
+	traversal(root, 0)
+	return ans
+}
+
+func pathSum(root *TreeNode, targetSum int) int {
+	cnt := make(map[int]int)
+	cnt[0] = 1
+	ans := 0
+
+	var traversal func(*TreeNode, int)
+	traversal = func(tn *TreeNode, sum int) {
+		if tn == nil {
+			return
+		}
+		sum += tn.Val
+		ans += cnt[sum-targetSum]
+		cnt[sum]++
+
+		traversal(tn.Left, sum)
+		traversal(tn.Right, sum)
+
+		cnt[sum]--
 	}
 	traversal(root, 0)
 	return ans

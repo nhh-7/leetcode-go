@@ -15,7 +15,7 @@ func rob1(nums []int) int {
 	return dp[n-1]
 }
 
-func rob(nums []int) int {
+func rob2(nums []int) int {
 	n := len(nums)
 	if n == 1 {
 		return nums[0]

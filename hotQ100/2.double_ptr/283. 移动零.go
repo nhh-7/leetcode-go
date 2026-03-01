@@ -1,6 +1,6 @@
 package hot
 
-func moveZeroes(nums []int) {
+func moveZeroes1(nums []int) {
 	left, right := 0, 0
 	len := len(nums)
 
@@ -15,5 +15,16 @@ func moveZeroes(nums []int) {
 	for left < len {
 		nums[left] = 0
 		left++
+	}
+}
+
+func moveZeroes(nums []int) {
+	slow, fast := 0, 0
+	for fast < len(nums) {
+		if nums[fast] != 0 {
+			nums[slow], nums[fast] = nums[fast], nums[slow]
+			slow++
+		}
+		fast++
 	}
 }
