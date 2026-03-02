@@ -21,7 +21,7 @@ func trap1(height []int) int {
 	return ans
 }
 
-func trap(height []int) int {
+func trap2(height []int) int {
 	n := len(height)
 	left, right := 0, n-1
 	leftMax, rightMax := height[left], height[right]
@@ -37,6 +37,27 @@ func trap(height []int) int {
 		} else {
 			ans += rightMax - height[right]
 			right--
+		}
+	}
+	return ans
+}
+
+func trap(height []int) int {
+	n := len(height)
+	leftMax, rightMax := 0, 0
+
+	i, j := 0, n-1
+	ans := 0
+	for i <= j {
+		leftMax = max(leftMax, height[i])
+		rightMax = max(rightMax, height[j])
+
+		if leftMax < rightMax {
+			ans += leftMax - height[i]
+			i++
+		} else {
+			ans += rightMax - height[j]
+			j--
 		}
 	}
 	return ans

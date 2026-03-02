@@ -1,6 +1,6 @@
 package backtrack
 
-func combinationSum(candidates []int, target int) [][]int {
+func combinationSum1(candidates []int, target int) [][]int {
 	ans := [][]int{}
 	path := []int{}
 	n := len(candidates)
@@ -23,5 +23,31 @@ func combinationSum(candidates []int, target int) [][]int {
 		}
 	}
 	dfs(0, target)
+	return ans
+}
+
+func combinationSum(candidates []int, target int) [][]int {
+	ans := [][]int{}
+	path := []int{}
+
+	var backtrack func(int, int)
+	backtrack = func(start, target int) {
+		if target == 0 {
+			c_path := make([]int, len(path))
+			copy(c_path, path)
+			ans = append(ans, c_path)
+			return
+		}
+		if target < 0 {
+			return
+		}
+
+		for i := start; i < len(candidates); i++ {
+			path = append(path, candidates[i])
+			backtrack(i, target-candidates[i])
+			path = path[:len(path)-1]
+		}
+	}
+	backtrack(0, target)
 	return ans
 }

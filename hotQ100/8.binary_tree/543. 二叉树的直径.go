@@ -8,7 +8,7 @@ package binarytree
  *     Right *TreeNode
  * }
  */
-func diameterOfBinaryTree(root *TreeNode) int {
+func diameterOfBinaryTree1(root *TreeNode) int {
 	ans := 0
 	var traversal func(*TreeNode) int
 
@@ -26,5 +26,23 @@ func diameterOfBinaryTree(root *TreeNode) int {
 		return max(left, right) + 1
 	}
 	traversal(root)
+	return ans - 1
+}
+
+func diameterOfBinaryTree(root *TreeNode) int {
+	ans := 0
+
+	var dfs func(*TreeNode) int
+	dfs = func(tn *TreeNode) int {
+		if tn == nil {
+			return 0
+		}
+		left := dfs(tn.Left)
+		right := dfs(tn.Right)
+
+		ans = max(ans, left+right+1)
+		return max(left, right) + 1
+	}
+	dfs(root)
 	return ans - 1
 }

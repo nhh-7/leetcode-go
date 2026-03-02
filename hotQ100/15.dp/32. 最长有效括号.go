@@ -1,7 +1,7 @@
 package dp
 
 // dp[i] 表示到下标i有多少的最长有效括号子串长度
-func longestValidParentheses(s string) int {
+func longestValidParentheses1(s string) int {
 	n := len(s)
 	dp := make([]int, n)
 	if n == 0 {
@@ -25,6 +25,38 @@ func longestValidParentheses(s string) int {
 				if dp[i-1] > 0 && i-1-dp[i-1] >= 0 && s[i-1-dp[i-1]] == '(' {
 					dp[i] = 2 + dp[i-1]
 					if i-2-dp[i-1] >= 0 { // 累加上一段
+						dp[i] += dp[i-2-dp[i-1]]
+					}
+				}
+			}
+		}
+		ans = max(ans, dp[i])
+	}
+	return ans
+}
+
+func longestValidParentheses(s string) int {
+	n := len(s)
+	if n == 0 {
+		return 0
+	}
+	dp := make([]int, n)
+	dp[0] = 0
+
+	ans := 0
+	for i := 1; i < n; i++ {
+		if s[i] == '(' {
+			dp[i] = 0
+		} else {
+			if s[i-1] == '(' {
+				dp[i] = 2
+				if i-2 >= 0 {
+					dp[i] += dp[i-2]
+				}
+			} else {
+				if dp[i-1] > 0 && i-1-dp[i-1] >= 0 && s[i-1-dp[i-1]] == '(' {
+					dp[i] = dp[i-1] + 2
+					if i-2-dp[i-1] >= 0 {
 						dp[i] += dp[i-2-dp[i-1]]
 					}
 				}

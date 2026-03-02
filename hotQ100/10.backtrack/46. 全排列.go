@@ -1,6 +1,6 @@
 package backtrack
 
-func permute(nums []int) [][]int {
+func permute1(nums []int) [][]int {
 	ans := [][]int{}
 	n := len(nums)
 	path := make([]int, 0)
@@ -26,5 +26,33 @@ func permute(nums []int) [][]int {
 		}
 	}
 	dfs()
+	return ans
+}
+
+func permute(nums []int) [][]int {
+	ans := [][]int{}
+	path := []int{}
+	vis := make(map[int]bool)
+
+	var backtrack func(map[int]bool)
+	backtrack = func(vis map[int]bool) {
+		if len(path) == len(nums) {
+			tmp := make([]int, len(path))
+			copy(tmp, path)
+			ans = append(ans, tmp)
+			return
+		}
+
+		for i := 0; i < len(nums); i++ {
+			if !vis[i] {
+				path = append(path, nums[i])
+				vis[i] = true
+				backtrack(vis)
+				vis[i] = false
+				path = path[:len(path)-1]
+			}
+		}
+	}
+	backtrack(vis)
 	return ans
 }

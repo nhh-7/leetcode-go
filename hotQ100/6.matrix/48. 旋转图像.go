@@ -23,10 +23,22 @@ func rotate1(matrix [][]int) {
 }
 
 // 先将矩阵**沿主对角线（左上到右下）转置（交换）**，再将每一行**水平翻转**。
-func rotate(matrix [][]int) {
+func rotate2(matrix [][]int) {
 	n := len(matrix)
 	for i := range matrix {
 		for j := i; j < n; j++ {
+			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+		}
+	}
+	for _, row := range matrix {
+		slices.Reverse(row)
+	}
+}
+
+func rotate(matrix [][]int) {
+	n := len(matrix)
+	for i := 0; i < n; i++ {
+		for j := 0; j <= i; j++ {
 			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 		}
 	}
