@@ -1,6 +1,6 @@
 package hot
 
-func maxArea(height []int) int {
+func maxArea1(height []int) int {
 	ans := 0
 
 	left, right := 0, len(height)-1
@@ -15,5 +15,20 @@ func maxArea(height []int) int {
 		}
 	}
 
+	return ans
+}
+
+func maxArea(height []int) int {
+	ans := 0
+	left, right := 0, len(height)-1
+	for left < right {
+		if height[left] < height[right] {
+			ans = max(height[left]*(right-left), ans)
+			left++
+		} else {
+			ans = max(height[right]*(right-left), ans)
+			right--
+		}
+	}
 	return ans
 }

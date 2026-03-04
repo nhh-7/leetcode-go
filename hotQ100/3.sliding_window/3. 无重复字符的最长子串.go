@@ -1,6 +1,6 @@
 package hot
 
-func lengthOfLongestSubstring(s string) int {
+func lengthOfLongestSubstring1(s string) int {
 	ans := 0
 	n := len(s)
 	cnt := [128]int{}
@@ -14,6 +14,24 @@ func lengthOfLongestSubstring(s string) int {
 			left++
 		}
 
+		ans = max(ans, right-left+1)
+	}
+	return ans
+}
+
+func lengthOfLongestSubstring(s string) int {
+	cnt := make([]int, 128)
+	n := len(s)
+
+	left := 0
+	ans := 0
+	for right := range n {
+		cnt[s[right]]++
+
+		for cnt[s[right]] > 1 {
+			cnt[s[left]]--
+			left++
+		}
 		ans = max(ans, right-left+1)
 	}
 	return ans

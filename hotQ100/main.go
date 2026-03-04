@@ -28,11 +28,19 @@ func task(ctx context.Context) {
 	}
 }
 
+func test(t ...int) {
+	for _, v := range t {
+		fmt.Println(v)
+	}
+}
+
 func main() {
 	var b strings.Builder
 	b.WriteString("aa")
 	b.WriteString(". ")
 	fmt.Println(b.String())
+
+	test(1, 2, 3, 4, 5, 7)
 
 	var wg sync.WaitGroup
 	for i := 0; i < 10; i++ {

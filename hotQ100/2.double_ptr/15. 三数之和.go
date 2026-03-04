@@ -45,7 +45,7 @@ func threeSum1(nums []int) [][]int {
 	return ans
 }
 
-func threeSum(nums []int) [][]int {
+func threeSum2(nums []int) [][]int {
 	n := len(nums)
 	slices.Sort(nums)
 	ans := make([][]int, 0)
@@ -66,6 +66,37 @@ func threeSum(nums []int) [][]int {
 					j++
 				}
 				for j < k && nums[k-1] == nums[k] {
+					k--
+				}
+				j++
+				k--
+			}
+		}
+	}
+	return ans
+}
+
+func threeSum(nums []int) [][]int {
+	slices.Sort(nums)
+	n := len(nums)
+	ans := [][]int{}
+	for i := 0; i < n-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		j, k := i+1, n-1
+		for j < k {
+			s := nums[i] + nums[j] + nums[k]
+			if s > 0 {
+				k--
+			} else if s < 0 {
+				j++
+			} else {
+				ans = append(ans, []int{nums[i], nums[j], nums[k]})
+				for j < k && nums[j] == nums[j+1] {
+					j++
+				}
+				for j < k && nums[k] == nums[k-1] {
 					k--
 				}
 				j++

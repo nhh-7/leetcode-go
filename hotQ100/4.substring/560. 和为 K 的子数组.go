@@ -15,7 +15,7 @@ func subarraySum1(nums []int, k int) int {
 	return ans
 }
 
-func subarraySum(nums []int, k int) int {
+func subarraySum2(nums []int, k int) int {
 	ans := 0
 	cnt := make(map[int]int, len(nums)+1)
 	cnt[0] = 1
@@ -24,6 +24,19 @@ func subarraySum(nums []int, k int) int {
 		s += x
 		ans += cnt[s-k]
 		cnt[s]++
+	}
+	return ans
+}
+
+func subarraySum(nums []int, k int) int {
+	sum := 0
+	cnt := map[int]int{}
+	cnt[0] = 1
+	ans := 0
+	for _, v := range nums {
+		sum += v
+		ans += cnt[sum-k]
+		cnt[sum]++
 	}
 	return ans
 }

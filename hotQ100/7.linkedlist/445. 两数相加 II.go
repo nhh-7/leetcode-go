@@ -21,7 +21,7 @@ func reverse(l *ListNode) *ListNode {
 	return pre
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
 	l1 = reverse(l1)
 	l2 = reverse(l2)
 

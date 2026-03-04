@@ -2,7 +2,7 @@ package backtrack
 
 import "slices"
 
-func exist(board [][]byte, word string) bool {
+func exist1(board [][]byte, word string) bool {
 	DIRs := [][]int{
 		{0, 1},
 		{1, 0},
@@ -63,6 +63,44 @@ func exist(board [][]byte, word string) bool {
 	for i, row := range board {
 		for j, c := range row {
 			if c == w[0] {
+				if dfs(i, j, 0) {
+					return true
+				}
+			}
+		}
+	}
+	return false
+}
+
+func exist(board [][]byte, word string) bool {
+	direction := [][]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+	m, n := len(board), len(board[0])
+
+	var dfs func(i, j, index int) bool
+	dfs = func(i, j, index int) bool {
+		if board[i][j] != word[index] {
+			return false
+		}
+		if index == len(word)-1 {
+			return true
+		}
+		tmp := board[i][j]
+		board[i][j] = ' '
+		for _, d := range direction {
+			ni, nj := i+d[0], j+d[1]
+			if ni >= m || ni < 0 || nj >= n || nj < 0 {
+				continue
+			}
+			if dfs(ni, nj, index+1) {
+				return true
+			}
+		}
+		board[i][j] = tmp
+		return false
+	}
+	for i, row := range board {
+		for j, b := range row {
+			if b == word[0] {
 				if dfs(i, j, 0) {
 					return true
 				}

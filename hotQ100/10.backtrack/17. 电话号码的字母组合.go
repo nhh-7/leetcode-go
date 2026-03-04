@@ -1,6 +1,6 @@
 package backtrack
 
-func letterCombinations(digits string) []string {
+func letterCombinations1(digits string) []string {
 	mapping := [...]string{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}
 	ans := []string{}
 	path := []byte{}
@@ -23,5 +23,28 @@ func letterCombinations(digits string) []string {
 		}
 	}
 	dfs(0)
+	return ans
+}
+
+func letterCombinations(digits string) []string {
+	mapping := [...]string{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}
+	ans := []string{}
+	path := []byte{}
+
+	var backtrack func(start int)
+	backtrack = func(start int) {
+		if len(path) == len(digits) {
+			ans = append(ans, string(path))
+			return
+		}
+
+		for _, ch := range mapping[int(digits[start]-'0')] {
+			path = append(path, byte(ch))
+			backtrack(start + 1)
+			path = path[:len(path)-1]
+		}
+
+	}
+	backtrack(0)
 	return ans
 }

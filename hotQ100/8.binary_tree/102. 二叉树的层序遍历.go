@@ -8,7 +8,7 @@ package binarytree
  *     Right *TreeNode
  * }
  */
-func levelOrder(root *TreeNode) [][]int {
+func levelOrder1(root *TreeNode) [][]int {
 	if root == nil {
 		return [][]int{}
 	}
@@ -32,6 +32,32 @@ func levelOrder(root *TreeNode) [][]int {
 			}
 		}
 		ans = append(ans, layer)
+	}
+	return ans
+}
+
+func levelOrder(root *TreeNode) [][]int {
+	queue := []*TreeNode{}
+	if root == nil {
+		return [][]int{}
+	}
+	queue = append(queue, root)
+	ans := [][]int{}
+	for len(queue) > 0 {
+		length := len(queue)
+		level := make([]int, length)
+		for i := range length {
+			node := queue[0]
+			queue = queue[1:]
+			level[i] = node.Val
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		ans = append(ans, level)
 	}
 	return ans
 }
