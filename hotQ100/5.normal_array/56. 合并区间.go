@@ -4,7 +4,7 @@ import (
 	"slices"
 )
 
-func merge(intervals [][]int) [][]int {
+func merge1(intervals [][]int) [][]int {
 	ans := [][]int{}
 	slices.SortFunc(intervals, func(lhs, rhs []int) int {
 		if lhs[0] == rhs[0] {
@@ -21,6 +21,30 @@ func merge(intervals [][]int) [][]int {
 			right = intervals[i][1]
 		} else {
 			right = max(right, intervals[i][1])
+		}
+	}
+	ans = append(ans, []int{left, right})
+	return ans
+}
+
+func merge(intervals [][]int) [][]int {
+	slices.SortFunc(intervals, func(a, b []int) int {
+		if a[0] == b[0] {
+			return a[1] - b[1]
+		}
+		return a[0] - b[0]
+	})
+
+	ans := [][]int{}
+	left := intervals[0][0]
+	right := intervals[0][1]
+	for i := 1; i < len(intervals); i++ {
+		if intervals[i][0] <= right {
+			right = max(intervals[i][1], right)
+		} else {
+			ans = append(ans, []int{left, right})
+			left = intervals[i][0]
+			right = intervals[i][1]
 		}
 	}
 	ans = append(ans, []int{left, right})

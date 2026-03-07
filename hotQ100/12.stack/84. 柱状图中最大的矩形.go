@@ -3,7 +3,7 @@ package stack
 // 单调栈内递增，寻找下一个更小的
 // 以[4,4,4,3]为例，当遍历到下标0，以4为高度，那么需要向右扩展，找到第一个比4小的数，以他来作为矩形的右边界
 // 而左边界就是该下标在单调栈中的上一个元素
-func largestRectangleArea(heights []int) int {
+func largestRectangleArea1(heights []int) int {
 	stack := []int{}
 	stack = append(stack, -1)    // 哨兵结点，用于处理以第一个元素为高
 	heights = append(heights, 0) // 哨兵
@@ -22,6 +22,24 @@ func largestRectangleArea(heights []int) int {
 			ans = max(ans, (i-l-1)*heights[top])
 		}
 		stack = append(stack, i)
+	}
+	return ans
+}
+
+func largestRectangleArea(heights []int) int {
+	stack := []int{}
+	stack = append(stack, -1)
+	heights = append(heights, 0)
+
+	ans := 0
+	for right, h := range heights {
+		for len(stack) > 1 && heights[stack[len(stack)-1]] > h {
+			idx := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			left := stack[len(stack)-1]
+			ans = max(ans, heights[idx]*(right-left-1))
+		}
+		stack = append(stack, right)
 	}
 	return ans
 }

@@ -64,7 +64,7 @@ func getIntersectionNode2(headA, headB *ListNode) *ListNode {
 	return p
 }
 
-func getIntersectionNode(headA, headB *ListNode) *ListNode {
+func getIntersectionNode3(headA, headB *ListNode) *ListNode {
 	p, q := headA, headB
 	for p != q {
 		if p == nil {
@@ -79,4 +79,22 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 		}
 	}
 	return p
+}
+
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	cur_a, cur_b := headA, headB
+	for cur_a != cur_b {
+		if cur_a == nil {
+			cur_a = headB
+		} else {
+			cur_a = cur_a.Next
+		}
+
+		if cur_b == nil {
+			cur_b = headA
+		} else {
+			cur_b = cur_b.Next
+		}
+	}
+	return cur_a
 }

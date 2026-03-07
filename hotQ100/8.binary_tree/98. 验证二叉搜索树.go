@@ -8,7 +8,7 @@ package binarytree
  *     Right *TreeNode
  * }
  */
-func isValidBST(root *TreeNode) bool {
+func isValidBST1(root *TreeNode) bool {
 	var pre *TreeNode
 	var traversal func(*TreeNode) bool
 	traversal = func(tn *TreeNode) bool {
@@ -28,4 +28,27 @@ func isValidBST(root *TreeNode) bool {
 		return true
 	}
 	return traversal(root)
+}
+
+func isValidBST(root *TreeNode) bool {
+	var pre *TreeNode = nil
+
+	var dfs func(*TreeNode) bool
+	dfs = func(tn *TreeNode) bool {
+		if tn == nil {
+			return true
+		}
+		if !dfs(tn.Left) {
+			return false
+		}
+		if pre != nil && pre.Val >= tn.Val {
+			return false
+		}
+		pre = tn
+		if !dfs(tn.Right) {
+			return false
+		}
+		return true
+	}
+	return dfs(root)
 }

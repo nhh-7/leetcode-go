@@ -14,7 +14,7 @@ func isCovered(cnt_s, cnt_t []int) bool {
 	return true
 }
 
-func minWindow(s string, t string) string {
+func minWindow1(s string, t string) string {
 	var cnt_s, cnt_t [128]int
 	for _, c := range t {
 		cnt_t[c]++
@@ -37,4 +37,29 @@ func minWindow(s string, t string) string {
 		return ""
 	}
 	return s[ansLeft : ansRight+1]
+}
+
+func minWindow(s string, t string) string {
+	cnt_s, cnt_t := [128]int{}, [128]int{}
+	for _, ch := range t {
+		cnt_t[ch]++
+	}
+
+	left := 0
+	ans_l, ans_r := -1, len(s)
+	for right, ch := range s {
+		cnt_s[ch]++
+		for isCovered(cnt_s[:], cnt_t[:]) {
+			if right-left < ans_r-ans_l {
+				ans_l = left
+				ans_r = right
+			}
+			cnt_s[s[left]]--
+			left++
+		}
+	}
+	if ans_l < 0 {
+		return ""
+	}
+	return s[ans_l : ans_r+1]
 }

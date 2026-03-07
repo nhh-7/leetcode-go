@@ -8,7 +8,7 @@ package binarytree
  *     Right *TreeNode
  * }
  */
-func isSymmetric(root *TreeNode) bool {
+func isSymmetric1(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
@@ -28,4 +28,25 @@ func isSymmetric(root *TreeNode) bool {
 		return in && out
 	}
 	return slove(root.Left, root.Right)
+}
+
+func isSymmetric(root *TreeNode) bool {
+	var solve func(node1, node2 *TreeNode) bool
+	solve = func(node1, node2 *TreeNode) bool {
+		if node1 == nil && node2 == nil {
+			return true
+		} else if node1 == nil && node2 != nil {
+			return false
+		} else if node1 != nil && node2 == nil {
+			return false
+		} else if node1.Val != node2.Val {
+			return false
+		}
+
+		o := solve(node1.Left, node2.Right)
+		i := solve(node1.Right, node2.Left)
+
+		return o && i
+	}
+	return solve(root.Left, root.Right)
 }

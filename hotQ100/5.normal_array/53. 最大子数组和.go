@@ -1,8 +1,10 @@
 package hot
 
-import "math"
+import (
+	"math"
+)
 
-func maxSubArray(nums []int) int {
+func maxSubArray1(nums []int) int {
 	ans := math.MinInt
 
 	sum := 0
@@ -14,5 +16,18 @@ func maxSubArray(nums []int) int {
 		}
 	}
 
+	return ans
+}
+
+func maxSubArray(nums []int) int {
+	ans := math.MinInt
+	sum := 0
+	for _, v := range nums {
+		sum += v
+		ans = max(sum, ans)
+		if sum < 0 {
+			sum = 0
+		}
+	}
 	return ans
 }

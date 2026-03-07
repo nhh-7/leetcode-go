@@ -30,7 +30,7 @@ func lowestCommonAncestor1(root, p, q *TreeNode) *TreeNode {
 	}
 }
 
-func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+func lowestCommonAncestor2(root, p, q *TreeNode) *TreeNode {
 	if root == nil {
 		return nil
 	}
@@ -38,8 +38,8 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 		return root
 	}
 
-	left := lowestCommonAncestor(root.Left, p, q)
-	right := lowestCommonAncestor(root.Right, p, q)
+	left := lowestCommonAncestor2(root.Left, p, q)
+	right := lowestCommonAncestor2(root.Right, p, q)
 
 	if left == nil && right != nil {
 		return right
@@ -50,4 +50,21 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	} else {
 		return nil
 	}
+}
+
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	if root == nil || root == p || root == q {
+		return root
+	}
+	left := lowestCommonAncestor(root.Left, p, q)
+	right := lowestCommonAncestor(root.Right, p, q)
+
+	if left == nil && right != nil {
+		return right
+	} else if left != nil && right == nil {
+		return left
+	} else if left != nil && right != nil {
+		return root
+	}
+	return nil
 }

@@ -26,7 +26,7 @@ type ColorAndNode struct {
 	node  *TreeNode
 }
 
-func inorderTraversal(root *TreeNode) []int {
+func inorderTraversal2(root *TreeNode) []int {
 	stack := []ColorAndNode{}
 	WHITE, GRAY := 0, 1
 	stack = append(stack, ColorAndNode{color: WHITE, node: root})
@@ -55,6 +55,50 @@ func inorderTraversal(root *TreeNode) []int {
 			})
 		} else {
 			ans = append(ans, top.node.Val)
+		}
+	}
+	return ans
+}
+
+func inorderTraversal3(root *TreeNode) []int {
+	ans := []int{}
+	var dfs func(*TreeNode)
+	dfs = func(tn *TreeNode) {
+		if tn == nil {
+			return
+		}
+		dfs(tn.Left)
+		ans = append(ans, tn.Val)
+		dfs(tn.Right)
+	}
+	dfs(root)
+	return ans
+}
+
+func inorderTraversal(root *TreeNode) []int {
+	type colorNode struct {
+		color int
+		node  *TreeNode
+	}
+	stack := []colorNode{}
+	GRAY, WITHE := 1, 0
+
+	stack = append(stack, colorNode{WITHE, root})
+	ans := []int{}
+	for len(stack) > 0 {
+		color, node := stack[len(stack)-1].color, stack[len(stack)-1].node
+		stack = stack[:len(stack)-1]
+
+		if node == nil {
+			continue
+		}
+
+		if color == WITHE {
+			stack = append(stack, colorNode{WITHE, node.Right})
+			stack = append(stack, colorNode{GRAY, node})
+			stack = append(stack, colorNode{WITHE, node.Left})
+		} else {
+			ans = append(ans, node.Val)
 		}
 	}
 	return ans

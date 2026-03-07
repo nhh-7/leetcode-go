@@ -1,6 +1,6 @@
 package backtrack
 
-func subsets(nums []int) [][]int {
+func subsets1(nums []int) [][]int {
 	ans := [][]int{}
 	n := len(nums)
 	path := []int{}
@@ -18,5 +18,25 @@ func subsets(nums []int) [][]int {
 		}
 	}
 	dfs(0)
+	return ans
+}
+
+func subsets(nums []int) [][]int {
+	ans := [][]int{}
+	path := []int{}
+
+	var backtrack func(int)
+	backtrack = func(start int) {
+		tmp := make([]int, len(path))
+		copy(tmp, path)
+		ans = append(ans, tmp)
+
+		for i := start; i < len(nums); i++ {
+			path = append(path, nums[i])
+			backtrack(i + 1)
+			path = path[:len(path)-1]
+		}
+	}
+	backtrack(0)
 	return ans
 }

@@ -1,6 +1,6 @@
 package greedy
 
-func canJump(nums []int) bool {
+func canJump1(nums []int) bool {
 	max_cover := 0
 	n := len(nums)
 	for i := 0; i < n; i++ {
@@ -9,6 +9,19 @@ func canJump(nums []int) bool {
 		}
 		max_cover = max(max_cover, i+nums[i])
 		if max_cover >= n-1 {
+			return true
+		}
+	}
+	return false
+}
+
+func canJump(nums []int) bool {
+	n := len(nums)
+	maxCover := 0
+	for i := 0; i <= maxCover; i++ {
+		maxCover = max(maxCover, nums[i]+i)
+
+		if maxCover >= n-1 {
 			return true
 		}
 	}
