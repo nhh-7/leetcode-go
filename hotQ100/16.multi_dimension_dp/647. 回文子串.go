@@ -1,7 +1,7 @@
 package multidimensiondp
 
 // / 定义 `dp[i][j] `表示子串 s[i..j] 是否为回文，若 s[i] == s[j] 且满足“子串长度 <= 2”或“内部子串` dp[i+1][j-1] `为真”，则当前子串为回文，最终累加所有为 true 的状态。
-func countSubstrings(s string) int {
+func countSubstrings1(s string) int {
 	ans := 0
 	n := len(s)
 	dp := make([][]bool, n)
@@ -16,6 +16,28 @@ func countSubstrings(s string) int {
 					ans++
 				}
 			}
+		}
+	}
+	return ans
+}
+
+func countSubstrings(s string) int {
+	ans := 0
+	n := len(s)
+	for i := range n {
+		l, r := i, i
+		for l >= 0 && r < n && s[l] == s[r] {
+			l--
+			r++
+			ans++
+		}
+	}
+	for i := range n - 1 {
+		l, r := i, i+1
+		for l >= 0 && r < n && s[l] == s[r] {
+			l--
+			r++
+			ans++
 		}
 	}
 	return ans
