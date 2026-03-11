@@ -1,6 +1,6 @@
 package internal
 
-func merge(nums1 []int, m int, nums2 []int, n int) {
+func merge1(nums1 []int, m int, nums2 []int, n int) {
 	p1, p2 := m-1, n-1
 	pTail := m + n - 1
 
