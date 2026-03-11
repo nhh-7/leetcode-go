@@ -38,7 +38,7 @@ func reorderList(head *ListNode) {
 		l1.Next = l2
 		l1 = l1Next
 
-		l2.Next = l1Next
+		l2.Next = l1
 		l2 = l2Next
 	}
 }
