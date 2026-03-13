@@ -1,6 +1,8 @@
 package internal
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 func partition1(nums []int, left, right int) int {
 	r := rand.Intn(right-left+1) + left
@@ -27,9 +29,42 @@ func partition1(nums []int, left, right int) int {
 	return j
 }
 
-func QuickSort(nums []int, left, right int) {
+func QuickSort1(nums []int, left, right int) {
 	if left < right {
 		pivot := partition1(nums, left, right)
+
+		QuickSort1(nums, left, pivot-1)
+		QuickSort1(nums, pivot+1, right)
+	}
+}
+
+func partition2(nums []int, left, right int) int {
+	rdn_idx := rand.Intn(right-left+1) + left
+	nums[left], nums[rdn_idx] = nums[rdn_idx], nums[left]
+
+	pivot := nums[left]
+	i, j := left+1, right
+	for {
+		for i <= j && nums[i] < pivot {
+			i++
+		}
+		for i <= j && nums[j] > pivot {
+			j--
+		}
+		if i >= j {
+			break
+		}
+		nums[i], nums[j] = nums[j], nums[i]
+		i++
+		j--
+	}
+	nums[j], nums[left] = nums[left], nums[j]
+	return j
+}
+
+func QuickSort(nums []int, left, right int) {
+	if left < right {
+		pivot := partition2(nums, left, right)
 
 		QuickSort(nums, left, pivot-1)
 		QuickSort(nums, pivot+1, right)
