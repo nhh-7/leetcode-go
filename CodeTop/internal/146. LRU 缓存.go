@@ -11,7 +11,7 @@ type LRUCache struct {
 	keyToNode  map[int]*CacheNode
 }
 
-func Constructor(capacity int) LRUCache {
+func _Constructor(capacity int) LRUCache {
 	head, tail := &CacheNode{}, &CacheNode{}
 	head.next = tail
 	tail.prev = head
