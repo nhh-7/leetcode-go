@@ -4,7 +4,7 @@ type MyQueue struct {
 	stIn, stOut []int
 }
 
-func Constructor() MyQueue {
+func Constructor1() MyQueue {
 	return MyQueue{
 		stIn:  []int{},
 		stOut: []int{},
