@@ -1,6 +1,6 @@
 package internal
 
-func maxProfit(prices []int) int {
+func maxProfit1(prices []int) int {
 	ans := 0
 	minPrice := prices[0]
 	for _, p := range prices {
