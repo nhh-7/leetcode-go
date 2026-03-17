@@ -1,0 +1,41 @@
+package times1
+
+import "unicode"
+
+func myAtoi(s string) int {
+	n := len(s)
+	idx := 0
+	for idx < n && s[idx] == ' ' {
+		idx++
+	}
+
+	sign := 1
+	if idx < n && s[idx] == '-' {
+		sign = -1
+		idx++
+	} else if idx < n && s[idx] == '+' {
+		sign = 1
+		idx++
+	}
+
+	max_int := 1<<31 - 1
+	min_int := -1 << 31
+
+	res := 0
+	for idx < n && unicode.IsDigit(rune(s[idx])) {
+
+		digit := int(s[idx] - '0')
+
+		if res > max_int/10 || res == max_int/10 && digit > 7 {
+			if sign == 1 {
+				return max_int
+			} else {
+				return min_int
+			}
+		}
+
+		res = res*10 + digit
+		idx++
+	}
+	return sign * res
+}
