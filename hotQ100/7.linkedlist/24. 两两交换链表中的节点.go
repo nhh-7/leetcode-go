@@ -8,12 +8,16 @@ package hot
  * }
  */
 
-/**
- 0 -> 1 -> 2 -> 3 (0为虚拟节点)
+/*
+*
+
+	0 -> 1 -> 2 -> 3 (0为虚拟节点)
+
 三步走：
- - 0 -> 2
- - 2 -> 1
- - 1 -> 3
+  - 0 -> 2
+  - 2 -> 1
+  - 1 -> 3
+
 迭代更新node0和node1
 */
 func swapPairs(head *ListNode) *ListNode {
@@ -36,12 +40,15 @@ func swapPairs(head *ListNode) *ListNode {
 	return dummy.Next
 }
 
-/**
- 0 -> 1 -> 2 -> 3 (0为虚拟节点)
+/*
+*
+
+	0 -> 1 -> 2 -> 3 (0为虚拟节点)
+
 三步走：
- - 0 -> 2
- - 2 -> 1
- - 1 -> 3
+  - 0 -> 2
+  - 2 -> 1
+  - 1 -> 3
 */
 func swapPairs1(head *ListNode) *ListNode {
 	dummy := &ListNode{}
@@ -55,7 +62,7 @@ func swapPairs1(head *ListNode) *ListNode {
 		tmp2 := cur.Next.Next // 被交换两节点的后一节点
 		cur.Next.Next = tmp1  // 第二节点 -> 第一节点
 
-		cur.Next.Next.Next = tmp2 // 连接后一节点
+		cur.Next.Next.Next = tmp2 // 连接后一节点。
 		cur = cur.Next.Next       // 更新前一节点
 	}
 	return dummy.Next
