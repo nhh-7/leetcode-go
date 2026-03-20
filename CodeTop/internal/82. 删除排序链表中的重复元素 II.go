@@ -7,7 +7,7 @@ package internal
  *     Next *ListNode
  * }
  */
-func deleteDuplicates(head *ListNode) *ListNode {
+func deleteDuplicates1(head *ListNode) *ListNode {
 	dummy := &ListNode{Next: head}
 
 	cur := dummy
